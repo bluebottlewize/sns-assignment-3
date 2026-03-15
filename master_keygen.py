@@ -15,6 +15,7 @@ def generate_system_keys():
     tgs_nodes = ["TGS_1", "TGS_2", "TGS_3"]
     all_nodes = as_nodes + tgs_nodes
     
+    private_keys = {}
     public_keys = {}
     
     # 2. Generate and distribute keys independently [cite: 42]
@@ -24,6 +25,8 @@ def generate_system_keys():
         
         # Save private key securely (Simulating independent storage) 
         priv_filename = f"{node_id.lower()}_private.json"
+        private_keys[node_id] = priv_key
+
         export_key(priv_filename, {
             "authority_id": node_id,
             "private_key": priv_key
@@ -39,7 +42,7 @@ def generate_system_keys():
     print("Private keys saved to individual node files (e.g., as_1_private.json).")
     print("All public keys published to 'public_keys.json'.")
 
-    return public_keys
+    return private_keys, public_keys
 
 if __name__ == "__main__":
-    public_keys = generate_system_keys()
+    private_keys, public_keys = generate_system_keys()
